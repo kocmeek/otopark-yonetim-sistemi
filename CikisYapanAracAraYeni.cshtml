@@ -1,0 +1,152 @@
+﻿@model otoparkcogencomtr.Models.AracYeni.AracAra
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles{
+    @*BOOTSTRAP TAGSINPUT*@
+    <link href="~/Content/bootstrap-tagsinput.min.css" rel="stylesheet" />
+    @*JQUERY UI*@
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+    @*SELECT2*@
+    <link href="~/Content/select2.min.css" rel="stylesheet" />
+}
+
+
+@{
+    var parametreler = new RouteValueDictionary();
+    parametreler.Add("sayfaNo", ViewBag.iSayfaNo);
+    parametreler.Add("dGirisTarihi", ViewBag.dGirisTarihi);
+    parametreler.Add("dCikisTarihi", ViewBag.dCikisTarihi);
+    parametreler.Add("cPlaka", ViewBag.cPlaka);
+    parametreler.Add("iKodAracTipi", ViewBag.iKodAracTipi);
+    parametreler.Add("iKodUrun2", ViewBag.iKodUrun2);
+    parametreler.Add("iAbonelikDurumu", ViewBag.iAbonelikDurumu);
+    parametreler.Add("iDuzeltmeTipi", ViewBag.iDuzeltmeTipi);
+    parametreler.Add("dAboneBaslangicTarihi", ViewBag.dAboneBaslangicTarihi);
+    parametreler.Add("dAboneBitisTarihi", ViewBag.dAboneBitisTarihi);
+
+    ViewBag.cTitle = "Çıkış Yapan Araç Ara";
+}
+
+<div class="d-flex justify-content-between">
+    <h1 class="m-0 mb-1">Çıkış Yapan Araç Ara</h1>
+</div>
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">@System.Configuration.ConfigurationManager.AppSettings["cCRMAdi"]</a></li>
+
+        <li class="breadcrumb-item"><a href="/Arac/CikisYapanAracListeleYeni">Araçlar</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Araç Ara</li>
+    </ol>
+</nav>
+
+<div class="panel">
+    @using (Html.BeginForm("CikisYapanAracListeleYeni", "Arac", FormMethod.Get))
+    {
+        @Html.Hidden("sayfaNo", (object)ViewBag.sayfaNo)
+
+
+
+    <div class="row">
+        <div class="form-group col-md-6">
+            @Html.LabelFor(model => model.cPlaka)
+            @Html.TextBoxFor(model => model.cPlaka, new { @class = "form-control", @maxlength = "100", @placeholder = "Lütfen aramak istediğiniz plakayı girin ...", @autocomplete = "off", @tabindex = 1 })
+        </div>
+        <div class="form-group col-md-6">
+            @Html.LabelFor(model => model.iKodAracTipi)
+            @Html.DropDownListFor(x => x.iKodAracTipi, new SelectList(ViewBag.AracTipiListesi, "iKodAracTipi", "cAdi"), "Lütfen araç tipi seçin ...", new { @class = "form-control", @tabindex = 4 })
+        </div>
+    </div>
+            <div class="row">
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.dGirisTarihi)
+                @Html.TextBoxFor(model => model.dGirisTarihi, "{0:dd.MM.yyyy}", new { @class = "form-control", @maxlength = "100", @placeholder = "Lütfen giriş tarihi girin ...", @autocomplete = "off", @tabindex = 2 })
+            </div>
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.dCikisTarihi)
+                @Html.TextBoxFor(model => model.dCikisTarihi, "{0:dd.MM.yyyy}", new { @class = "form-control", @maxlength = "100", @placeholder = "Lütfen bitiş tarihi girin ...", @autocomplete = "off", @tabindex = 3 })
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.iAbonelikDurumu)
+                @Html.DropDownListFor(x => x.iAbonelikDurumu, new SelectList(ViewBag.AboneDurumuListesi, "iAbonelikDurumu", "cAdi"), "Lütfen abonelik durumu seçin ...", new { @class = "form-control", @tabindex = 4 })
+            </div>
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.dAboneBaslangicTarihi)
+                @Html.TextBoxFor(model => model.dAboneBaslangicTarihi, "{0:dd.MM.yyyy}", new { @class = "form-control", @maxlength = "100", @placeholder = "Lütfen abonelik başlangıç tarihi girin ...", @autocomplete = "off", @tabindex = 2 })
+            </div>
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.dAboneBitisTarihi)
+                @Html.TextBoxFor(model => model.dAboneBitisTarihi, "{0:dd.MM.yyyy}", new { @class = "form-control", @maxlength = "100", @placeholder = "Lütfen abonelik bitiş tarihi girin ...", @autocomplete = "off", @tabindex = 3 })
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-4">
+                @Html.LabelFor(model => model.iDuzeltmeTipi)
+                @Html.DropDownListFor(x => x.iDuzeltmeTipi, new SelectList(ViewBag.DuzeltmeTipiListesi, "iDuzeltmeTipi", "cAdi"), "Lütfen düzeltme tipi seçin ...", new { @class = "form-control", @tabindex = 5 })
+            </div>
+            <div class="form-group col-md-8">
+                @Html.LabelFor(model => model.iKodUrun2)
+                @Html.DropDownListFor(x => x.iKodUrun2, new SelectList(ViewBag.Urun2Listesi, "iKodUrun2", "cAdi"), "Lütfen ürün seçin ...", new { @class = "form-control", @tabindex = 6 })
+            </div>
+        </div>
+
+        { Html.RenderPartial("/Views/Partials/FormUyariMesajlari.cshtml"); }
+
+        <button type="submit" class="btn btn-primary mr-1" tabindex="7">Ara</button>
+    }
+</div>
+
+@section Scripts{
+    @*JQUERY UI*@
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+    @*DATE PICKER*@
+    <script src="~/CogenScripts/datePicker.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#dGirisTarihi").datepicker(dataPickerOption);
+            $("#dCikisTarihi").datepicker(dataPickerOption);
+            $("#dAboneBaslangicTarihi").datepicker(dataPickerOption);
+            $("#dAboneBitisTarihi").datepicker(dataPickerOption);
+        });
+    </script>
+    @if (ViewBag.dGirisTarihi != null && ViewBag.dGirisTarihi != string.Empty)
+    {
+        <script type="text/javascript">
+            $('#dGirisTarihi').datepicker("setDate", new Date(@ViewBag.dGirisTarihi));
+        </script>
+    }
+    @if (ViewBag.dCikisTarihi != null && ViewBag.dCikisTarihi != string.Empty)
+    {
+        <script type="text/javascript">
+            $('#dCikisTarihi').datepicker("setDate", new Date(@ViewBag.dCikisTarihi));
+        </script>
+    }
+    @if (ViewBag.dAboneBaslangicTarihi != null && ViewBag.dAboneBaslangicTarihi != string.Empty)
+    {
+        <script type="text/javascript">
+            $('#dAboneBaslangicTarihi').datepicker("setDate", new Date(@ViewBag.dAboneBaslangicTarihi));
+        </script>
+    }
+    @if (ViewBag.dAboneBitisTarihi != null && ViewBag.dAboneBitisTarihi != string.Empty)
+    {
+        <script type="text/javascript">
+            $('#dAboneBitisTarihi').datepicker("setDate", new Date(@ViewBag.dAboneBitisTarihi));
+        </script>
+    }
+
+    @*SELECT2*@
+    <script src="~/Scripts/select2.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#iKodAracTipi").select2();
+            $("#iKodUrun2").select2();
+            $("#iAbonelikDurumu").select2();
+            $("#iDuzeltmeTipi").select2();
+        });
+    </script>
+}
+
