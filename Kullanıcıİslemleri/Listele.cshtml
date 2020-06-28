@@ -1,0 +1,171 @@
+﻿@using X.PagedList
+@using X.PagedList.Mvc
+@using System
+
+@model IPagedList<otoparkcogencomtr.Models.Kullanici2>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    ViewBag.cTitle = "Kullanıcı Listele";
+
+    var parametreler = new RouteValueDictionary();
+    parametreler.Add("sayfaNo", ViewBag.iSayfaNo);
+    parametreler.Add("siralamaSekli", ViewBag.cSiralama);
+    parametreler.Add("arama", ViewBag.cArama);
+}
+
+@section Styles{
+    <link href="/Content/sweetalert2.min.css" rel="stylesheet">
+}
+
+<div class="d-flex justify-content-between">
+    <h1 class="m-0 mb-1">Kullanıcı Listele</h1>
+    @{ Html.RenderPartial("/Views/Kullanici2/Islemler.cshtml", parametreler); }
+</div>
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">@System.Configuration.ConfigurationManager.AppSettings["cCRMAdi"]</a></li>
+
+        <li class="breadcrumb-item"><a href="/Kullanici2/Listele">Kullanıcılar</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Kullanıcı Listele</li>
+    </ol>
+</nav>
+
+@if (!String.IsNullOrEmpty(ViewBag.cArama) && ViewBag.cSplitArama != null && (ViewBag.cSplitArama as List<string>).Count > 0)
+{
+    <div class="mb-2">
+        @for (int i = 0; i < (ViewBag.cSplitArama as List<string>).Count; i++)
+        {
+            string cArama = (ViewBag.cArama as string).Replace((ViewBag.cSplitArama as List<string>)[i], "");
+            parametreler.Remove("arama");
+            parametreler.Add("arama", cArama);
+
+            <a href="@Url.Action("Listele", "Kullanici2", parametreler)" class="btn btn-secondary mb-1 mr-1">@Html.Raw((ViewBag.cSplitArama as List<string>)[i]) <i class="fa fa-close"></i></a>
+        }
+
+        @{
+            parametreler.Remove("arama");
+            parametreler.Add("arama", ViewBag.cArama);
+        }
+    </div>
+}
+@if (Model != null)
+{
+    <form action="/Kullanici2/Listele" method="get" class="form-inline">
+        <input name="arama" class="form-control" type="text" placeholder="Lütfen aramak istediğiniz kelimeyi girin ...">
+        <button class="btn btn-primary" type="submit">Ara</button>
+    </form>
+
+    <div class="panel panel-list">
+        <table class="table table-bordered table-striped table-hover m-0">
+            <thead>
+                <tr>
+                    @{
+                        parametreler.Remove("siralamaSekli");
+                        parametreler.Add("siralamaSekli", ViewBag.Kolon1);
+                    }
+                    <th scope="col" class="text-center th-kod border-0 bg-gray">@Html.ActionLink("#", "Listele", parametreler) @Html.Raw(ViewBag.cArrowKolon1)</th>
+                    @{
+                        parametreler.Remove("siralamaSekli");
+                        parametreler.Add("siralamaSekli", ViewBag.Kolon2);
+                    }
+                    <th scope="col" class="border-0 bg-gray">@Html.ActionLink("Kullanıcı Bilgileri", "Listele", parametreler) @Html.Raw(ViewBag.cArrowKolon2)</th>
+                    @{
+                        parametreler.Remove("siralamaSekli");
+                        parametreler.Add("siralamaSekli", ViewBag.Kolon7);
+                    }
+                    <th scope="col" class="th-durum text-center border-0 bg-gray">@Html.ActionLink("Durum", "Listele", parametreler) @Html.Raw(ViewBag.cArrowKolon7)</th>
+                    <th scope="col" class="th-islemler text-center border-0 bg-gray">İşlemler</th>
+                </tr>
+            </thead>
+            @{
+                parametreler.Remove("siralamaSekli");
+                parametreler.Add("siralamaSekli", ViewBag.cSiralama);
+            }
+            <tbody>
+                @if (Model != null && Model.Count > 0)
+                {
+                    for (int i = 0; i < Model.Count; i++)
+                    {
+                        <tr>
+                            <td scope="row" class="text-center">@Model[i].iKodKullanici2</td>
+                            <td>@Html.Raw(Model[i].cKullanici2)</td>
+                            @if (Model[i].iAktifMi == 0)
+                            {
+                                <td class="text-center"><span class="badge badge-warning">Pasif</span></td>
+                            }
+                            else if (Model[i].iAktifMi == 1)
+                            {
+                                <td class="text-center"><span class="badge badge-success">Aktif</span></td>
+                            }
+                            <td class="p-1 px-2">
+                                <div class="dropdown">
+                                    <button class="btn btn-link btn-block dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Yönet
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                                        @{
+                                            parametreler.Remove("id");
+                                            parametreler.Add("id", Model[i].iKodKullanici2);
+                                        }
+                                        <a class="dropdown-item" href="@Url.Action("Ekle", "Kullanici2", parametreler)">Güncelle</a>
+                                        <a class="dropdown-item" href="@Url.Action("DetayliBilgi", "Kullanici2", parametreler)">Detaylı Bilgi</a>
+                                        @if (Model[i].iAktifMi == 0)
+                                        {
+                                            {
+                                                parametreler.Remove("durum");
+                                                parametreler.Add("durum", 1);
+                                            }
+                                            <a class="dropdown-item" href="@Url.Action("AktifPasif", "Kullanici2", parametreler)">Aktif Et</a>
+                                        }
+                                        else if (Model[i].iAktifMi == 1)
+                                        {
+                                            {
+                                                parametreler.Remove("durum");
+                                                parametreler.Add("durum", 0);
+                                            }
+                                            <a class="dropdown-item" href="@Url.Action("AktifPasif", "Kullanici2", parametreler)">Pasif Et</a>
+                                        }
+                                        @{ parametreler.Remove("durum"); }
+                                        <button class="dropdown-item btn-sil" type="button" data-url="@Url.Action("Sil", "Kullanici2", parametreler)">Sil</button>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="8" class="m-2 text-center">Listelenecek hiç kayıt bulunamadı!</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        @if (ViewBag.iSonuc != null && ViewBag.iSonuc == -2)
+        {
+            <div class="alert alert-danger" role="alert">
+                <strong>Hata</strong> : Beklenmedik bir hata oluştu, lütfen sistem yöneticinizle iletişe geçin!
+            </div>
+        }
+    </div>
+
+    <div class="d-flex justify-content-between">
+        @if (ViewBag.iToplamKayitSayisi > 0)
+        {
+            <p class="toplam-kayit-sayisi">
+                Toplam @ViewBag.iToplamKayitSayisi kayıttan, @ViewBag.iIlkKayit ile @ViewBag.iSonKayit arası listeniyor.
+            </p>
+        }
+        @Html.PagedListPager(Model, sayfaNo => Url.Action("Listele", "Kullanici2", otoparkcogencomtr.Class.Parametre.Send(sayfaNo, parametreler)), new X.PagedList.Mvc.Common.PagedListRenderOptionsBase { LiElementClasses = new[] { "page-item" }, PageClasses = new string[] { "page-link" } })
+    </div>
+}
+@section Scripts{
+    <script src="/Scripts/sweetalert2.all.min.js"></script>
+    <script src="/CogenScripts/silButonu.js"></script>
+}

@@ -1,0 +1,128 @@
+﻿@model otoparkcogencomtr.Models.Kullanici2
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles{
+    @*JQUERY UI*@
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+    @*SELECT2*@
+    <link href="~/Content/select2.min.css" rel="stylesheet" />
+    @*UPLOAD*@
+    <link href="~/Content/lightbox.min.css" rel="stylesheet" />
+}
+
+@{
+    ViewBag.cTitle = "Kullanıcı Bilgileri Güncelle";
+}
+
+
+<div class="d-flex justify-content-between">
+    <h1 class="m-0 mb-1">Kullanıcı Bilgileri Güncelle</h1>
+</div>
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">@System.Configuration.ConfigurationManager.AppSettings["cCRMAdi"]</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Kullanıcı Bilgileri Güncelle</li>
+    </ol>
+</nav>
+
+<div class="panel">
+    @using (Html.BeginForm("Guncelle", "Kullanici2", FormMethod.Post))
+    {
+        @Html.HiddenFor(model => model.iKodKullanici2)
+
+        <div class="form-group foto-upload">
+            @Html.HiddenFor(m => m.cResimListesi)
+            @Html.LabelFor(model => model.cResimler)
+            @Html.TextBoxFor(model => model.cResimler, new { @type = "file", @class = "custom-file-input-css", @maxlength = "100", @placeholder = "Lütfen logo seçin ...", @autocomplete = "off", @accept = ".jpg,.jpeg", @tabindex = 1 })
+            <div id="fileUploadAlertSuccess" class="alert alert-success" role="alert"></div>
+            <div id="fileUploadAlertDanger" class="alert alert-danger" role="alert"></div>
+            <div id="image-list" class="row">
+                @if (Model != null && Model.iKodKullanici2 > 0 && Model.resimListesi != null)
+                {
+                    for (int i = 0; i < Model.resimListesi.Count; i++)
+                    {
+                        <div class="col-md-3">
+                            <i class="fa fa-close" onclick="DeleteImage(this)"></i>
+                            <i class="fa fa-arrow-right" onclick="ImageOrderNext(this)"></i>
+                            <i class="fa fa-arrow-left" onclick="ImageOrderBack(this)"></i>
+                            <a href="/Files/@Model.resimListesi[i].cBuyukResim" data-lightbox="image">
+                                <div class="image" data-file-upload="0" data-file-name="@Model.resimListesi[i].cKucukResim.Replace("th-", "")" style="background-image:url('/Files/@Model.resimListesi[i].cKucukResim')">
+                                </div>
+                            </a>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-md-3">
+                @Html.LabelFor(model => model.cAdi)
+                @Html.TextBoxFor(model => model.cAdi, new { @id = "cAdi", @class = "form-control", @maxlength = "50", @placeholder = "Lütfen adı girin ...", @autocomplete = "off", @tabindex = 3 })
+                @Html.ValidationMessageFor(model => model.cAdi, "", new { @class = "invalid-feedback" })
+            </div>
+
+            <div class="form-group col-md-3">
+                @Html.LabelFor(model => model.cSoyadi)
+                @Html.TextBoxFor(model => model.cSoyadi, new { @class = "form-control", @maxlength = "50", @placeholder = "Lütfen soyadı girin ...", @autocomplete = "off", @tabindex = 4 })
+                @Html.ValidationMessageFor(model => model.cSoyadi, "", new { @class = "invalid-feedback" })
+            </div>
+            <div class="form-group col-md-3">
+                @Html.LabelFor(model => model.cTelefon)
+                @Html.TextBoxFor(model => model.cTelefon, new { @class = "form-control", @maxlength = "50", @placeholder = "Lütfen telefon numarası girin ...", @autocomplete = "off", @tabindex = 5 })
+            </div>
+
+            <div class="form-group col-md-3">
+                @Html.LabelFor(model => model.cGSM)
+                @Html.TextBoxFor(model => model.cGSM, new { @class = "form-control", @maxlength = "50", @placeholder = "Lütfen GSM numarası girin ...", @autocomplete = "off", @tabindex = 6 })
+                @Html.ValidationMessageFor(model => model.cTelefon, "", new { @class = "invalid-feedback" })
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.cEMail)
+                @Html.TextBoxFor(model => model.cEMail, new { @class = "form-control", @maxlength = "100", @placeholder = "Lütfen e-mail girin ...", @autocomplete = "off", @tabindex = 7 })
+                @Html.ValidationMessageFor(model => model.cEMail, "", new { @class = "invalid-feedback" })
+            </div>
+
+            <div class="form-group col-md-6">
+                @Html.LabelFor(model => model.cSifre)
+                @Html.TextBoxFor(model => model.cSifre, new { @class = "form-control", @maxlength = "100", @placeholder = "Lütfen şifre girin ...", @autocomplete = "off", @tabindex = 8 })
+                @Html.ValidationMessageFor(model => model.cSifre, "", new { @class = "invalid-feedback" })
+            </div>
+        </div>
+
+        { Html.RenderPartial("/Views/Partials/FormUyariMesajlari.cshtml"); }
+
+        <button type="submit" class="btn btn-primary mr-1" tabindex="9">Güncelle</button>
+    }
+</div>
+
+
+
+@section Modals {
+    @{ Html.RenderPartial("/Views/Partials/WebcamPictureModal.cshtml"); }
+}
+
+@section Scripts{
+    @*MASK*@
+    <script src="~/Scripts/jquery.browser.min.js"></script>
+    <script src="~/Scripts/mask.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#cTelefon").mask("9 (999) 999 99 99");
+            $("#cGSM").mask("9 (999) 999 99 99");
+        });
+    </script>
+    @*UPLOAD*@
+    <script type="text/javascript">
+        var maxFilesUpload = 1;
+    </script>
+    <script src="~/CogenScripts/upload.js"></script>
+    <script src="~/Scripts/lightbox.js"></script>
+}

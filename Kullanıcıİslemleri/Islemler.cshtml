@@ -1,0 +1,17 @@
+﻿@{ 
+    var parametreler = new RouteValueDictionary();
+    parametreler.Add("sayfaNo", ViewBag.iSayfaNo);
+    parametreler.Add("siralamaSekli", ViewBag.cSiralama);
+    parametreler.Add("arama", ViewBag.cArama);
+}
+
+<div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        İşlemler
+    </button>
+    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" href="@Url.Action("Ekle", "Kullanici2", parametreler)">Kullanıcı Ekle</a>
+        <a class="dropdown-item" href="@Url.Action("Listele", "Kullanici2", parametreler)">Kullanıcı Listele</a>
+        <a href="@Url.Action("Ara", "Kullanici2", parametreler)" class="dropdown-item">Kullanıcı Ara</a>
+    </div>
+</div>

@@ -1,0 +1,66 @@
+﻿@model otoparkcogencomtr.Models.Kullanici2.Kullanici2Giris
+
+@{
+    ViewBag.cTitle = "Kullanıcı Giriş";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+
+@section Styles{
+    @*JQUERY UI*@
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+    @*SELECT2*@
+    <link href="~/Content/select2.min.css" rel="stylesheet" />
+}
+
+<div class="kullanici-giris kullanici-giris-2 wow fadeInUp">
+    <div class="kullanici-giris-ust">
+        <h1>@System.Configuration.ConfigurationManager.AppSettings["cCRMAdi"]</h1>
+        <h2>Kullanıcı Giriş</h2>
+        <img class="logo" src="~/Images/cogen-crm-logo.png?date=231020190155" />
+    </div>
+    <div class="kullanici-giris-alt">
+        @using (Html.BeginForm("Giris", "Kullanici2", FormMethod.Post))
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.iKodLokasyon)
+                @Html.DropDownListFor(x => x.iKodLokasyon, new SelectList(ViewBag.LokasyonListesi, "iKodLokasyon", "cAdi"), "Lütfen lokasyon seçin ...", new { @class = "form-control", @tabindex = 1 })
+                @Html.ValidationMessageFor(model => model.iKodLokasyon, "", new { @class = "invalid-feedback" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.cEMail)
+                @Html.TextBoxFor(model => model.cEMail, new { @class = "form-control", @maxlength = "50", @placeholder = "Lütfen e-mail adresi girin ...", @tabindex = 2 })
+                @Html.ValidationMessageFor(model => model.cEMail, "", new { @class = "invalid-feedback" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.cSifre)
+                @Html.PasswordFor(model => model.cSifre, new { @class = "form-control", @maxlength = "50", @placeholder = "Lütfen şifre girin ...", @tabindex = 3 })
+                @Html.ValidationMessageFor(model => model.cSifre, "", new { @class = "invalid-feedback" })
+            </div>
+            <div class="form-group">
+                <div class="custom-control custom-radio custom-control-inline">
+                    @Html.CheckBoxFor(model => model.lBeniHatirla, new { @class = "custom-control-input", @tabindex = 4 })
+                    @Html.LabelFor(model => model.lBeniHatirla, new { @class = "custom-control-label" })
+                </div>
+            </div>
+
+            { Html.RenderPartial("/Views/Partials/FormUyariMesajlari.cshtml"); }
+            <button type="submit" class="btn btn-primary btn-block" tabindex="5">Giriş Yap</button>
+        }
+    </div>
+    <p class="footer">
+        Copyright © @DateTime.Now.Year <a href="https://www.cogen.com.tr/" title="Cogen® Teknoloji | CRM">Cogen® Teknoloji | CRM</a> Tüm hakları saklıdır.<br />
+        Versiyon : @ViewContext.Controller.GetType().Assembly.GetName().Version
+    </p>
+</div>
+
+@section Scripts{
+    @*JQUERY UI*@
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+    @*SELECT2*@
+    <script src="~/Scripts/select2.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#iKodLokasyon").select2();
+        });
+    </script>
+}
