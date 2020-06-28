@@ -37,6 +37,11 @@ işlemlerinizi yapabilir ve görüntüleyebilirsiniz.
 
 # KULLANILAN TEKNOLOJİLER
 
-Projede temel olarak MVC5, C# ve .NET dilleri kullanılmıştır.
+Projede temel olarak MVC5, C# ve ASP.NET dilleri kullanılmıştır. Bunların yanında javascript, Webapi ve ajax teknolojilerinden faydalanılmıştır. Verilerin saklanması ve veri işleme ortamı olarak MSSQL (Microsoft SQL Server) tercih edilmiştir.
+
+
+# NOT
+
+Yukarıda paylaşılan kodlar proje kodlarının %2 den az kısmını kapsamaktadır.Projede 3 kullanıcı(Admin,Görevli ve Muhasebe) ve farklı lokasyonlar(toplam 6 kullanıcı) esas alınarak her kullanıcı için farklı yetki grupları atanmış ve her kullanıcı için temel 10 ekran tasarlanmıştır.
 
 
