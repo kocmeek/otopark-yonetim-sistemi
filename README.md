@@ -1,4 +1,8 @@
-Otopark Yönetim Sistemi Nedir?
+# HITS
+Otopark Yönetim Sistemi ( Parking Managament System )
+
+
+# OTOPARK YÖNETİM SİSTEMİ NEDİR?
 
 
 Otopark Yönetim Sistemi otoparkdaki araç takibini sağlar. Otopark çalışanları için hızlı ve
@@ -32,3 +36,9 @@ fiyatlandırmalar yapabilirsiniz.
 Otopark Yönetim Sistemi responsive tasarım yapısıyla tüm ekran boyutlarında, (pc, notebook,
 telefon) kendisini yeniden boyutlandırır. Böylece tüm ekranlarda aynı kalitede ve görüntüde
 işlemlerinizi yapabilir ve görüntüleyebilirsiniz.
+
+# KULLANILAN TEKNOLOJİLER
+
+Projede temel olarak MVC5, C# ve .NET dilleri kullanılmıştır.
+
+
