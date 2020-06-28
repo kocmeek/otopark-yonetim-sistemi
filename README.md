@@ -1,7 +1,5 @@
 # Otopark Yönetim Sistemi ( Parking Managament System )
 
-# OTOPARK YÖNETİM SİSTEMİ NEDİR?
-
 
 Otopark Yönetim Sistemi otoparkdaki araç takibini sağlar. Otopark çalışanları için hızlı ve
 kolay araç kaydını sağlayarak otopark içi yönetimi kolaylaştırır. Müşteri zaman kaybı
