@@ -35,7 +35,7 @@ işlemlerinizi yapabilir ve görüntüleyebilirsiniz.
 
 # KULLANILAN TEKNOLOJİLER
 
-Projede temel olarak MVC5, C# ve ASP.NET dilleri kullanılmıştır. Bunların yanında Javascript dili, Webapi ve Ajax teknolojilerinden faydalanılmıştır. Verilerin saklanması ve veri işleme ortamı olarak MSSQL (Microsoft SQL Server) tercih edilmiştir.
+Projede temel olarak MVC5 teknolojisi, C# dili ve ASP.NET teknolojisi kullanılmıştır. Bunların yanında Javascript dili, Webapi ve Ajax teknolojilerinden faydalanılmıştır. Verilerin saklanması ve veri işleme ortamı olarak MSSQL (Microsoft SQL Server) tercih edilmiştir.
 
 
 # NOT
