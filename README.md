@@ -1,6 +1,4 @@
-# HITS
-Otopark Yönetim Sistemi ( Parking Managament System )
-
+# Otopark Yönetim Sistemi ( Parking Managament System )
 
 # OTOPARK YÖNETİM SİSTEMİ NEDİR?
 
