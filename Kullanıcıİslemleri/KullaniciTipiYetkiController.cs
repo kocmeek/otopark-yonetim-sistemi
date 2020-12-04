@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web.Mvc;
 using X.PagedList;
 
-namespace otoparkcogencomtr.Controllers
+namespace otoparkyonetim.Controllers
 {
     public class KullaniciTipiYetkiController : Controller
     {
