@@ -1,4 +1,4 @@
-﻿@model otoparkcogencomtr.Models.Kullanici2.Kullanici2Giris
+﻿@model otoparkyonetim.Models.Kullanici2.Kullanici2Giris
 
 @{
     ViewBag.cTitle = "Kullanıcı Giriş";
@@ -16,7 +16,7 @@
     <div class="kullanici-giris-ust">
         <h1>@System.Configuration.ConfigurationManager.AppSettings["cCRMAdi"]</h1>
         <h2>Kullanıcı Giriş</h2>
-        <img class="logo" src="~/Images/cogen-crm-logo.png?date=231020190155" />
+        <img class="logo" src="~/Images/logo.png?date=231020190155" />
     </div>
     <div class="kullanici-giris-alt">
         @using (Html.BeginForm("Giris", "Kullanici2", FormMethod.Post))
@@ -47,10 +47,6 @@
             <button type="submit" class="btn btn-primary btn-block" tabindex="5">Giriş Yap</button>
         }
     </div>
-    <p class="footer">
-        Copyright © @DateTime.Now.Year <a href="https://www.cogen.com.tr/" title="Cogen® Teknoloji | CRM">Cogen® Teknoloji | CRM</a> Tüm hakları saklıdır.<br />
-        Versiyon : @ViewContext.Controller.GetType().Assembly.GetName().Version
-    </p>
 </div>
 
 @section Scripts{
