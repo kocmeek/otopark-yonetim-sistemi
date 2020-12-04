@@ -6,7 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace otoparkcogencomtr.Controllers
+namespace otoparkyonetim.Controllers
 {
     public class Musteri4ApiController : ApiController
     {
