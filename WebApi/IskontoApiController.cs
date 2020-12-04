@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Web.Http;
 
-namespace otoparkcogencomtr.Controllers
+namespace otoparkyonetim.Controllers
 {
     public class IskontoApiController : ApiController
     {
