@@ -1,4 +1,4 @@
-﻿@model otoparkcogencomtr.Models.AracYeni
+﻿@model otoparkyonetim.Models.AracYeni
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -111,7 +111,7 @@
 @section Scripts{
     @*PRICE FORMAT*@
     <script src="~/Scripts/jquery.priceformat.min.js"></script>
-    <script src="~/CogenScripts/priceFormat.js"></script>
+    <script src="~/MelekScripts/priceFormat.js"></script>
     <script type="text/javascript">
         $(function () {
             $('.txtUrunBirimFiyati').priceFormat(optionPriceFormat);
@@ -125,7 +125,7 @@
             @Html.Raw("var iKodLokasyonLogin = " + @ViewBag.iKodLokasyonLogin + ";");
         }
     </script>
-    <script src="~/CogenScripts/aracEkleYeni.js?date=210220202100"></script>
+    <script src="~/MelekScripts/aracEkleYeni.js?date=210220202100"></script>
     @if (Model == null)
     {
         <script type="text/javascript">
