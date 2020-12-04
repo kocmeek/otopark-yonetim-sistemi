@@ -6,7 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using X.PagedList;
 
-namespace otoparkcogencomtr.Controllers
+namespace otoparkyonetim.Controllers
 {
     public class Kullanici2Controller : Controller
     {
