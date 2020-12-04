@@ -9,7 +9,7 @@ using X.PagedList;
 using OfficeOpenXml;
 
 
-namespace otoparkcogencomtr.Controllers
+namespace otoparkyonetim.Controllers
 {
     public class AracController : Controller
     {
